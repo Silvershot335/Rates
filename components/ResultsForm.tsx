@@ -44,7 +44,7 @@ const ResultsForm: FC<{ data: Rate; id: string }> = ({ data }) => {
   return (
     <div>
       <div className="p-3 border-b">
-        <h1 className="text-2xl text-center">Rate songs for {data.title}</h1>
+        <h1 className="text-2xl text-center text-orange-500">Song Rates for {data.title}</h1>
         {data.playlist?.url ? (
           <div className="overflow-x-clip text-center">
             <a
@@ -58,21 +58,21 @@ const ResultsForm: FC<{ data: Rate; id: string }> = ({ data }) => {
           </div>
         ) : null}
       </div>
-      <div className="flex flex-wrap p-4 border-b">
+      <div className="flex flex-wrap p-4 border-b  justify-center">
         <div className="mr-4">
-          <div className="my-2">Best song: </div>
+          <div className="my-2 text-blue-500">Best Song: </div>
           <SpotifyFrame id={bestSong.link} />
         </div>
         <div>
-          <div className="my-2">Worst song: </div>
+          <div className="my-2 text-red-500">Worst Song: </div>
           <SpotifyFrame id={worstSong.link} />
         </div>
       </div>
       <div className="flex p-4">
         <ol className="w-full">
-          <div className="text-lg">Rankings:</div>
+          <div className="text-center text-lg text-orange-500">Rankings:</div>
           {userRankings.map((ranking, index) => (
-            <li key={ranking.username} className="pl-3">
+            <li key={ranking.username} className="pl-3 text-center">
               {index + 1}. {ranking.username} - {ranking.value}
             </li>
           ))}
