@@ -60,7 +60,7 @@ export default function Index() {
                 <div
                   className={`${
                     stage === Stages.Submit
-                      ? 'bg-[#af87ff] dark:bg-inherit dark:text-[#af87ff] dark:bg-neutral-800'
+                      ? 'bg-[#af87ff] dark:bg-inherit dark: dark:bg-neutral-800'
                       : stage === Stages.Rate
                       ? 'bg-blue-700 text-white'
                       : 'bg-emerald-700'
@@ -72,9 +72,9 @@ export default function Index() {
                     } px-3 py-1 -mx-3 border-b`}
                   >
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xl">{rate.title}</h3>
+                      <h3 className="text-xl text-sky-500">{rate.title}</h3>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-sky-400">
                       <div>
                         {stage === Stages.Submit
                           ? 'Submitting Songs'
@@ -83,7 +83,7 @@ export default function Index() {
                           : 'Rate over!'}
                       </div>
                       {stage === Stages.Submit ? (
-                        <div>{format(submitDate, 'EEEE, MMMM dd, yyyy')}</div>
+                        <div className='text-orange-400' >{format(submitDate, 'EEEE, MMMM dd, yyyy')}</div>
                       ) : null}
                     </div>
                   </div>
@@ -102,13 +102,13 @@ export default function Index() {
                         <div>{rate.waiting}</div>
                       ) : <div />}
                       {stage === Stages.Submit ? (
-                        <div>
-                          {daysUntilSubmitDate} Days until Submit Deadline
+                        <div className='text-orange-400'>
+                          {daysUntilSubmitDate} Days until Submission Deadline
                         </div>
                       ) : null}
                     </div>
                   ) : null}
-                  <div>People signed up:</div>
+                  <div className="text-cyan-400">Raters Signed Up:</div>
                   <div className="flex flex-wrap justify-between">
                     {members.map((member) => (
                       <div className="w-1/2" key={member}>
