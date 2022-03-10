@@ -33,7 +33,14 @@ const SpecificRate: FC = () => {
   const canSubmitSongs = submissionDeadline.valueOf() > today.valueOf();
 
   if (canSubmitSongs) {
-    return <AddSongsForm data={data} id={id} />;
+    return <AddSongsForm
+      data={{ 
+        ...data, 
+        songs: data.songs.filter(song => song.submittedBy.toLowerCase() === "you")
+      }}
+      otherSongs={data.songs.filter(song => song.submittedBy.toLowerCase() !== 'you')}
+      id={id}
+    />;
   } else if (data.isCompleted) {
     return <ResultsForm data={data} id={id} />;
   } else {

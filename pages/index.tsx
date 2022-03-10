@@ -71,8 +71,8 @@ export default function Index() {
                       stage === Stages.Rate ? 'border-white' : 'border-black'
                     } px-3 py-1 -mx-3 border-b`}
                   >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-xl text-sky-500">{rate.title}</h3>
+                    <div className="flex items-center justify-center">
+                      <h3 className="text-2xl text-sky-500">{rate.title}</h3>
                     </div>
                     <div className="flex items-center justify-between text-sky-400">
                       <div>

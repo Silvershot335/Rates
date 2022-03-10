@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { FC, FormEventHandler, useEffect, useState } from 'react';
-import { Rate } from '../types/rate';
+import { Rate, Song } from '../types/rate';
 import {
   baseSpotifyURL,
   exampleSpotifyURL,
@@ -11,8 +11,9 @@ import {
 import Button, { ButtonType } from './Button';
 import SpotifyFrame from './SpotifyFrame';
 
-const AddSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
+const AddSongsForm: FC<{ data: Rate; id: string; otherSongs: Song[]; }> = ({ data, id, otherSongs }) => {
   const [valid, setValid] = useState(true);
+  const [dupeSong, setDupeSong] = useState(false);
   const [inputs, setInputs] = useState<string[]>([]);
   const router = useRouter();
 
@@ -49,7 +50,9 @@ const AddSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
     const songsToSubmit = songs.filter((song) => !!song.length);
 
     if (
-      songsToSubmit.every((song) => isSpotifyURL(song)) &&
+      songsToSubmit.every(
+        (song) => isSpotifyURL(song) &&
+        !otherSongs.some((otherSong) => otherSong.link === getIDFromLink(song))) &&
       songsToSubmit.length !== 0
     ) {
       const response = await fetch(`/api/rates/${id}`, {
@@ -73,6 +76,9 @@ const AddSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
       }
     } else {
       setValid(false);
+      if (songs.some(song => otherSongs.some((otherSong) => otherSong.link === getIDFromLink(song)))) {
+        setDupeSong(true);
+      }
     }
   };
 
@@ -83,13 +89,14 @@ const AddSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
         {inputs.map((input, index) => {
           const id = `song-${index}`;
           const validSpotifyURL = isSpotifyURL(input);
-          const invalidInput = !valid && !validSpotifyURL;
+          const invalidInput = (!valid && !validSpotifyURL) || (!valid && dupeSong);
           return (
             <div key={index} className="lg:mx-0 mx-3">
               <div className="flex items-center justify-between">
                 <label htmlFor={id} className="flex px-2 py-1">
-                  Song {index + 1}
+                  Song {index + 1} 
                 </label>
+                {!valid && dupeSong ? <div className="text-red-500">This Song Is Already Submitted!</div> : null}
               </div>
               <input
                 type="text"
@@ -110,7 +117,7 @@ const AddSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
                 }}
                 placeholder={sampleSpotifyURL}
                 autoComplete="off"
-                className={`dark:bg-neutral-700 dark:text-white rounded-lg p-1 px-2 flex outline-0 w-full ${
+                className={`dark:bg-neutral-700 dark:text-white rounded-lg p-1 px-2 m-2 flex outline-0 w-full ${
                   invalidInput ? 'ring-2 ring-red-500' : ''
                 }`}
               />

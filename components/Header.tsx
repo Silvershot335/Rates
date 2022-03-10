@@ -30,7 +30,7 @@ const SessionHeader: FC<{ session: Session; signOut: () => void }> = ({
         </div>
         <div className="flex justify-between items-center">
           <h2 className="text-xl">Signed in as <p className="text-cyan-500">{session.user?.name}</p></h2>
-          <h2 className='text-3xl justify-center'> Welcome to the Rate</h2>
+          <h2 className='text-4xl justify-center '> Welcome to the Rate</h2>
           
           <Button
             buttonType={ButtonType.Primary}
@@ -44,7 +44,7 @@ const SessionHeader: FC<{ session: Session; signOut: () => void }> = ({
       </div>
     
       {children}
-      <p className='text-sm '>Made by Judah Goff <br></br> maintained by Silvershot</p>
+      <p className='text-sm '>Made by Deyndra <br></br> Maintained by Silvershot</p>
     </div>
   );
 };

@@ -59,15 +59,13 @@ async function getRate(
 
   const submissions = await getSongs(
     session,
-    submissionsOpen ? mySongs : songs,
+    songs,
     rates,
   );
 
   return {
     success: true,
-    songs: everyoneIsFinished
-      ? submissions
-      : submissions.map(({ link, submittedBy }) => ({
+    songs: submissions.map(({ link, submittedBy }) => ({
           link,
           submittedBy: submittedBy === session.user?.name ? 'You' : 'Not you',
         })),
