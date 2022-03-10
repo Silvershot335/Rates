@@ -56,7 +56,7 @@ export default function Index() {
 
           return (
             <Link key={rate.id} href={`/rate/${rate.id}`}>
-              <a className="w-full">
+              <a className="w-1/2">
                 <div
                   className={`${
                     stage === Stages.Submit
@@ -93,9 +93,9 @@ export default function Index() {
                         stage === Stages.Rate ? 'border-white' : 'border-black'
                       } flex items-center justify-between px-3 py-1 -mx-3 border-b`}
                     >
-                      {members.includes(session!.user!.name!) && stage === Stages.Submit ? (
+                      { members.includes(session!.user!.name!) && stage === Stages.Submit ? (
                         <div className="flex items-center">
-                          <div className="italic">Signed up!</div>
+                          <div className="italic text-green-500">Signed up!</div>
                           <MdDone />
                         </div>
                       ) : stage === Stages.Rate ? (
@@ -111,7 +111,7 @@ export default function Index() {
                   <div className="text-cyan-400">Raters Signed Up:</div>
                   <div className="flex flex-wrap justify-between">
                     {members.map((member) => (
-                      <div className="w-1/2" key={member}>
+                      <div className="w-1/3" key={member}>
                         {member}
                       </div>
                     ))}
