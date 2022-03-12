@@ -20,17 +20,21 @@ const SessionHeader: FC<{ session: Session; signOut: () => void }> = ({
               <Button buttonType={ButtonType.Primary} label="Rates" />
             </a>
           </Link>
+          <p className='text-sm '>Made by: <abbr title='Deyndra#2234'>Deyndra</abbr> <br></br> Maintained by: <abbr title='SilverShot#6796'>Silvershot</abbr></p>
           {session.isAdmin ? (
             <Link href={'/create-rate'}>
               <a>
                 <Button buttonType={ButtonType.Secondary} label="Create Rate" />
               </a>
+              
             </Link>
+            
           ) : null}
+          
         </div>
         <div className="flex justify-between items-center">
           <h2 className="text-xl">Signed in as <p className="text-cyan-500">{session.user?.name}</p></h2>
-          <h2 className='text-4xl justify-center '> Welcome to the Rate</h2>
+          <h2 className='text-4xl justify-center '> Welcome to Playlist Club</h2>
           
           <Button
             buttonType={ButtonType.Primary}
@@ -44,7 +48,6 @@ const SessionHeader: FC<{ session: Session; signOut: () => void }> = ({
       </div>
     
       {children}
-      <p className='text-sm '>Made by Deyndra <br></br> Maintained by Silvershot</p>
     </div>
   );
 };
