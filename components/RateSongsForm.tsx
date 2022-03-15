@@ -48,7 +48,7 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
   return (
     <main className="flex-col items-center self-center justify-center flex-1 w-full my-3">
       <div className="p-3 border-b">
-        <h1 className="text-2xl text-center">Rate songs for {data.title}</h1>
+        <h1 className="text-4xl text-center text-violet-500">{data.title}</h1>
         {data.playlist?.url ? (
           <div className="overflow-x-clip text-center">
             <a
@@ -70,16 +70,16 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
               key={`${actualLink} by ${song.submittedBy} ${index}`}
               className="flex flex-wrap items-center justify-between p-3 border-b"
             >
-              <div className="w-full">
+              <div className="flex items-center justify-center w-full">
                 <SpotifyFrame id={song.link} />
               </div>
               <div className="w-full px-2">
-                <div className="text-center">{rates[index]?.value}</div>
+                <div className="text-center text-orange-500">{rates[index]?.value}</div>
                 <input
                   type="range"
                   min={1}
                   max={10}
-                  step={0.25}
+                  step={0.10}
                   value={rates[index]?.value ?? 1}
                   onChange={(event) => {
                     setRates(
