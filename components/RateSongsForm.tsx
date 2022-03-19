@@ -112,17 +112,6 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
           );
         })}
         <div className="justify-evenly flex my-3">
-          <Button
-            buttonType={ButtonType.Secondary}
-            label="Save ratings for later"
-            disabled={rates.every((rate) => {
-              return rate.value !== 1;
-            })}
-            type="button"
-            onClick={() => {
-              submitRatings({ saveForLater: true });
-            }}
-          />
           <Button buttonType={ButtonType.Primary} label="Submit ratings" />
         </div>
       </form>
