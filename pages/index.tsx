@@ -60,7 +60,7 @@ export default function Index() {
                 <div
                   className={`${
                     stage === Stages.Submit
-                      ? 'bg-[#af87ff] dark:bg-inherit dark: dark:bg-neutral-800'
+                      ? 'bg-[#af87ff] dark:bg-inherit dark: bg-neutral-800'
                       : stage === Stages.Rate
                       ? 'bg-blue-700 text-white'
                       : 'bg-emerald-700'
@@ -111,7 +111,7 @@ export default function Index() {
                   <div className="text-cyan-400">Raters Signed Up:</div>
                   <div className="flex flex-wrap justify-between">
                     {members.map((member) => (
-                      <div className="w-1/3" key={member}>
+                      <div className="w-1/3 text-slate-50" key={member}>
                         {member}
                       </div>
                     ))}

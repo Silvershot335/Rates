@@ -73,7 +73,7 @@ const ResultsForm: FC<{ data: Rate; id: string }> = ({ data }) => {
           <div className="text-center text-lg text-orange-500">Rankings:</div>
           {userRankings.map((ranking, index) => (
             <li key={ranking.username} className="pl-3 text-center">
-              {index + 1}. {ranking.username} - {ranking.value}
+              {index + 1}. {ranking.username} - {ranking.value.toFixed(2).replace(/0+$/, '').replace(/\.$/, '')}
             </li>
           ))}
         </ol>
@@ -93,11 +93,11 @@ const ResultsForm: FC<{ data: Rate; id: string }> = ({ data }) => {
                 <SpotifyFrame id={id} />
               </div>
               <div className="flex flex-col px-3 pt-2">
-                <div>Submitted by {song.submittedBy}</div>
-                <div>Average rating: {average}</div>
+                <div className='dark:text-cyan-500 text-blue-800'>Submitted by {song.submittedBy}</div>
+                <div className='dark:text-orange-500 text-orange-700' >Average rating: {average.toFixed(2).replace(/0+$/, '').replace(/\.$/, '')}</div>
               </div>
             </div>
-            <div className="justify-evenly flex flex-wrap w-full pt-2">
+            <div className="justify-left flex flex-wrap w-full pt-8 dark:text-slate-200">
               {data.rates
                 .filter((rating) => rating.id === id)
                 .map((rating) => (

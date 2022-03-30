@@ -67,8 +67,8 @@ async function getRate(
     success: true,
     songs: submissions.map(({ link, submittedBy }) => ({
           link,
-          submittedBy: submittedBy === session.user?.name ? 'You' : 'Not you',
-        })),
+          submittedBy,
+    })),
     title,
     count,
     date: date.toDate().toISOString(),
