@@ -14,14 +14,15 @@ async function createRate({
   title,
   count,
   date: dateString,
+  endDate: endDateString
 }: Required<Rate>): Promise<{
   status: string;
   data: Rate | string;
 }> {
-  if (!title || !count || !dateString) {
+  if (!title || !count || !dateString || !endDateString) {
     return {
       status: 'Invalid body',
-      data: { title, count, date: dateString } as Rate,
+      data: { title, count, date: dateString, endDate: endDateString } as Rate,
     };
   }
 
@@ -37,10 +38,12 @@ async function createRate({
   }
 
   const date = admin.firestore.Timestamp.fromDate(new Date(dateString));
+  const endDate = admin.firestore.Timestamp.fromDate(new Date(endDateString));
   const doc = await rates.add({
     title,
     count,
     date,
+    endDate,
     songs: [],
     playlist: {
       id: '',
@@ -117,8 +120,12 @@ async function getRates(session: Session) {
       const allRaters = [...new Set(songs.map((song) => song.submittedBy))];
 
       const allHaveRated =
-        finishedRaters.every((rater) => allRaters.includes(rater)) &&
-        allRaters.every((rater) => finishedRaters.includes(rater));
+        (
+          finishedRaters.every((rater) => allRaters.includes(rater)) &&
+          allRaters.every((rater) => finishedRaters.includes(rater))
+        ) || (
+          data.endDate && data.endDate?.toMillis() < admin.firestore.Timestamp.now().toMillis()
+        );
 
       const youRated = finishedRaters.includes(session.user?.name!);
 
@@ -168,6 +175,7 @@ export default async function handler(
       title: req.body?.title ?? '',
       count: req.body?.count ?? 0,
       date: req.body?.date ?? '',
+      endDate: req.body?.endDate ?? '',
     } as Required<Rate>);
     if (status === 'Success') {
       res.status(201).json({ id: data });

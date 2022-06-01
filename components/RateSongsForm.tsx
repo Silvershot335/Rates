@@ -1,3 +1,4 @@
+import { useSession } from '../hooks/session';
 import { useRouter } from 'next/router';
 import { FC, FormEventHandler, useEffect, useState } from 'react';
 import { Rate, SongRating } from '../types/rate';
@@ -13,6 +14,15 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
     })),
   );
   const router = useRouter();
+
+  const [session] = useSession();
+
+  useEffect(() => {
+    console.log(session, data.songs)
+    if (!data.songs.map(song => song.submittedBy).includes(session?.user?.name ??"") && !session?.isAdmin) {
+      router.replace("/")
+    }
+  }, [data.songs, session] )
 
   useEffect(() => {
     setRates(

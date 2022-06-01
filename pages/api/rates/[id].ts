@@ -34,6 +34,7 @@ async function getRate(
   const count: number = data?.count ?? 0;
   const date: admin.firestore.Timestamp =
     data?.date ?? admin.firestore.Timestamp.now();
+  const endDate: admin.firestore.Timestamp = data?.endDate ?? admin.firestore.Timestamp.now();
   const playlist: Playlist = data?.playlist ?? { id: '', url: '' };
   const rates: SongRating[] = data?.rates ?? [];
   const finishedRaters: string[] = data?.finishedRaters ?? [];
@@ -46,16 +47,7 @@ async function getRate(
   const now = admin.firestore.Timestamp.now();
 
   const submissionsOpen = date.toMillis() > now.toMillis();
-
-  const allRaters = [...new Set(songs.map((song) => song.submittedBy))];
-
-  const everyoneIsFinished =
-    (allRaters.every((rater) => finishedRaters.includes(rater)) &&
-    finishedRaters.every((rater) => allRaters.includes(rater)));
-
-  const mySongs = songs.filter(
-    ({ submittedBy }) => submittedBy === session.user?.name,
-  );
+  const ratingsOpen = endDate.toMillis() > now.toMillis();
 
   const submissions = await getSongs(
     session,
@@ -73,8 +65,8 @@ async function getRate(
     count,
     date: date.toDate().toISOString(),
     playlist,
-    isCompleted: !submissionsOpen && everyoneIsFinished,
-    rates: everyoneIsFinished ? rates : [],
+    isCompleted: !submissionsOpen && !ratingsOpen,
+    rates: !ratingsOpen ? rates : [],
   };
 }
 

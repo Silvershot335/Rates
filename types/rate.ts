@@ -4,6 +4,7 @@ export interface Rate {
   title: string;
   count: number;
   date: string;
+  endDate: string;
 
   songs: Song[];
   playlist: Playlist;

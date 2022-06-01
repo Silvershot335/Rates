@@ -69,7 +69,9 @@ const clearDate = (date: Date): Date => {
 const CreateRate: FC = () => {
   const today = clearDate(new Date());
   const [date, setDate] = useState(nextFriday(today));
+  const [endDate, setEndDate] = useState(addWeeks(date, 2));
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showEndCalendar, setShowEndCalendar] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -81,8 +83,9 @@ const CreateRate: FC = () => {
     const formData = new FormData(event.target as HTMLFormElement);
     const payload = {
       title: formData.get('title'),
-      count: parseInt(formData.get('count')?.toString() || '3', 10),
+      count: parseInt(formData.get('count')?.toString() || '1', 10),
       date: date.toUTCString(),
+      endDate: endDate.toUTCString(),
     };
 
     if (!payload.title) {
@@ -137,7 +140,7 @@ const CreateRate: FC = () => {
             id="number-of-songs"
             name="count"
             label="Number of Songs"
-            placeholder="3"
+            placeholder="1"
             max={10}
             min={1}
           />
@@ -167,6 +170,32 @@ const CreateRate: FC = () => {
             />
           ) : null}
         </div>
+        <div className="lg:mx-0 mx-3">
+          <div className="mr-3">{format(endDate, 'EEEE, MMM do yyyy')}</div>
+          <Button
+            label={showEndCalendar ? 'Hide Calendar' : 'Show Calendar'}
+            type="button"
+            buttonType={ButtonType.Primary}
+            onClick={() => setShowEndCalendar(!showEndCalendar)}
+          />
+          {showEndCalendar ? (
+            <Calendar
+              value={date}
+              onChange={(date: Date) => {
+                setEndDate(clearDate(date));
+              }}
+              maxDate={nextFriday(
+                add(today, {
+                  months: 2,
+                }),
+              )}
+              calendarType={'Hebrew'}
+              minDate={today}
+              minDetail="month"
+            />
+          ) : null}
+        </div>
+        
         <div className="flex justify-center">
           <Button
             buttonType={ButtonType.Primary}
