@@ -58,7 +58,7 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
   return (
     <main className="flex-col items-center self-center justify-center flex-1 w-full my-3">
       <div className="p-3 border-b">
-        <h1 className="text-4xl text-center text-violet-500">{data.title}</h1>
+        <h1 className="text-4xl text-center text-sky-500">{data.title}</h1>
         {data.playlist?.url ? (
           <div className="overflow-x-clip text-center">
             <a
@@ -67,10 +67,13 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
               target="_blank"
               className="hover:text-blue-500 text-lg text-center text-blue-300 underline"
             >
-              {data.playlist.url}
+              Click Here for Playlist
             </a>
           </div>
         ) : null}
+        <div className='text-sm text-center'>
+          <h1>Rate each song out of 10!</h1>
+        </div>
       </div>
       <form onSubmit={submitForm}>
         {data.songs.map((song, index) => {
@@ -115,7 +118,7 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
                   target="_blank"
                   className="hover:text-blue-500 w-1/3 text-blue-300 underline"
                 >
-                  {actualLink}
+                  Song Link
                 </a>
               </div>
             </div>

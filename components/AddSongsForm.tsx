@@ -84,7 +84,9 @@ const AddSongsForm: FC<{ data: Rate; id: string; otherSongs: Song[]; }> = ({ dat
 
   return (
     <main className="lg:w-1/2 flex-col items-center self-center justify-center flex-1 w-full m-3">
-      <h1 className="text-2xl text-center" title='Paste Spotify Link'> Submit Songs</h1>
+      <h1 className="text-xl text-center" title='Paste Spotify Link'> Submit Songs for:</h1>
+      <h1 className='text-4xl text-center text-sky-500'> {data.title}</h1>
+      <h1 className='text-sm text-center'>Paste a Spotify Link Below</h1>
       <form onSubmit={handleFormSubmit}>
         {inputs.map((input, index) => {
           const id = `song-${index}`;

@@ -20,7 +20,7 @@ const SessionHeader: FC<{ session: Session; signOut: () => void }> = ({
               <Button buttonType={ButtonType.Primary} label="Rates" />
             </a>
           </Link>
-          <p className='text-sm '>Made by: <abbr title='Deyndra#2234'>Deyndra</abbr> <br></br> Maintained by: <abbr title='SilverShot#6796'>Silvershot</abbr></p>
+          <p className='text-sm '>Made by: <abbr className='text-sky-500' title='Deyndra#2234'>Deyndra</abbr> <br></br> Maintained by: <abbr className='text-sky-500' title='SilverShot#6796'>Silvershot</abbr></p>
           {session.isAdmin ? (
             <Link href={'/create-rate'}>
               <a>

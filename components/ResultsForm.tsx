@@ -44,7 +44,8 @@ const ResultsForm: FC<{ data: Rate; id: string }> = ({ data }) => {
   return (
     <div>
       <div className="p-3 border-b">
-        <h1 className="text-2xl text-center text-orange-500">Song Rates for {data.title}</h1>
+        <h1 className="text-xl text-center">Song Rating Results:</h1>
+        <h1 className="text-4xl text-center text-sky-500"> {data.title}</h1>
         {data.playlist?.url ? (
           <div className="overflow-x-clip text-center">
             <a
@@ -53,31 +54,12 @@ const ResultsForm: FC<{ data: Rate; id: string }> = ({ data }) => {
               target="_blank"
               className="hover:text-blue-500 text-lg text-center text-blue-300 underline"
             >
-              {data.playlist.url}
+              Playlist
             </a>
           </div>
         ) : null}
       </div>
-      <div className="flex flex-wrap p-4 border-b  justify-center">
-        <div className="mr-4">
-          <div className="my-2 text-blue-500">Best Song: </div>
-          <SpotifyFrame id={bestSong.link} />
-        </div>
-        <div>
-          <div className="my-2 text-red-500">Worst Song: </div>
-          <SpotifyFrame id={worstSong.link} />
-        </div>
-      </div>
-      <div className="flex p-4">
-        <ol className="w-full">
-          <div className="text-center text-lg text-orange-500">Rankings:</div>
-          {userRankings.map((ranking, index) => (
-            <li key={ranking.username} className="pl-3 text-center">
-              {index + 1}. {ranking.username} - {ranking.value.toFixed(2).replace(/0+$/, '').replace(/\.$/, '')}
-            </li>
-          ))}
-        </ol>
-      </div>
+      
       {[...new Set(scores.map((score) => score.link))].map((id) => {
         const song = scores.find((score) => score.link === id)!;
         const ratesForSong = data.rates.filter((rating) => rating.id === id);
