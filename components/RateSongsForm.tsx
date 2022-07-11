@@ -87,7 +87,7 @@ const RateSongsForm: FC<{ data: Rate; id: string }> = ({ data, id }) => {
                 <SpotifyFrame id={song.link} />
               </div>
               <div className="w-full px-2">
-                <div className="text-center text-orange-500">{rates[index]?.value}</div>
+                <div className="text-center text-orange-500 text-2xl">{rates[index]?.value}</div>
                 <input
                   type="range"
                   min={1}
