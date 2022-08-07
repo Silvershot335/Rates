@@ -108,7 +108,7 @@ export default function Index() {
                       ) : null}
                     </div>
                   ) : null}
-                  <div className="text-cyan-400">Raters Signed Up:</div>
+                  <div className="text-cyan-400">{members.length} Raters Signed Up:</div>
                   <div className="flex flex-wrap justify-between">
                     {members.map((member) => (
                       <div className="w-1/3 text-slate-50" key={member}>
