@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Session } from 'next-auth';
-import { getServerSession } from 'next-auth/next';
+import { Session, getServerSession } from 'next-auth';
 import admin from '../../../lib/firebase';
 import { Rate, Song } from '../../../types/rate';
 import { SessionWithToken } from '../../../types/session';
 import { join } from '../../../util/string';
+import { useSession } from 'next-auth/react';
+import { authOptions } from '../auth/[...nextauth]';
 
 type Timestamp = admin.firestore.Timestamp;
 
@@ -160,10 +161,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = (await getServerSession( req )) as SessionWithToken;
- // const accessToken = session?.user?.email;
-  console.log('index', session)
-  
+  const session = await getServerSession(req, res, authOptions);
+  console.log('blah', session);
+
   if (!session) {
     res.status(401).json({
       error: 'You Shall Not Pass',

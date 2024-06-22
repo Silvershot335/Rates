@@ -1,8 +1,9 @@
 import NextAuth from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
 import { SessionWithToken } from '../../../types/session';
+import type { AuthOptions } from "next-auth"
 
-export default NextAuth({
+export const authOptions: AuthOptions ={
   providers: [
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID!,
@@ -31,4 +32,6 @@ export default NextAuth({
       return session;
     },
   },
-});
+}
+
+export default NextAuth(authOptions);
