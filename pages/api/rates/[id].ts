@@ -142,11 +142,11 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const session = (await getSession({ req })) as SessionWithToken;
-  const accessToken = session?.token?.accessToken;
+  const accessToken = session?.user?.email;
 
   if (!accessToken || !session) {
     res.status(401).json({
-      error: 'Missing Access Token',
+      error: 'Get Out!!!',
     });
     return;
   }
