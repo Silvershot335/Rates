@@ -56,7 +56,7 @@ export default function Index() {
 
           return (
             <Link key={rate.id} href={`/rate/${rate.id}`}>
-              <a className="w-1/2">
+              <a>
                 <div
                   className={`${
                     stage === Stages.Submit
@@ -64,7 +64,7 @@ export default function Index() {
                       : stage === Stages.Rate
                       ? 'bg-blue-700 text-white'
                       : 'bg-emerald-700'
-                  } flex flex-col h-48 p-3 pt-0 m-3 overflow-y-auto rounded-lg border border-neutral-400 dark:border-neutral-500`}
+                  } w-1/2 flex flex-col h-48 p-3 pt-0 m-3 overflow-y-auto rounded-lg border border-neutral-400 dark:border-neutral-500`}
                 >
                   <div
                     className={`${
