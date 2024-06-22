@@ -80,12 +80,17 @@ export default function Index() {
                           ? 'Submitting Songs'
                           : stage === Stages.Rate
                           ? 'Rating Songs'
-                          : 'Rate over!'}
+                          : 'Rate over!'
+                          }
+          
                       </div>
+                      
                       {stage === Stages.Submit ? (
-                        <div className='text-orange-400' >{format(submitDate, 'EEEE, MMMM dd, yyyy')}</div>
+                        <div className='text-orange-400' >{format(submitDate, 'EEEE, MMMM dd, yyyy')}
+                        </div>
                       ) : null}
                     </div>
+                    
                   </div>
                   {stage === Stages.Submit || stage === Stages.Rate ? (
                     <div
@@ -93,6 +98,7 @@ export default function Index() {
                         stage === Stages.Rate ? 'border-white' : 'border-black'
                       } flex items-center justify-between px-3 py-1 -mx-3 border-b`}
                     >
+                      
                       { members.includes(session!.user!.name!) && stage === Stages.Submit ? (
                         <div className="flex items-center">
                           <div className="italic text-green-500">Signed up!</div>
@@ -104,6 +110,7 @@ export default function Index() {
                       {stage === Stages.Submit ? (
                         <div className='text-orange-400'>
                           {daysUntilSubmitDate} Days until Submission Deadline
+                          
                         </div>
                       ) : null}
                     </div>
