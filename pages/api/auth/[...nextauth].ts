@@ -27,7 +27,7 @@ export default NextAuth({
       (session as SessionWithToken).user = user ?? (session as SessionWithToken).user;
 
       (session as SessionWithToken).isAdmin = process.env.RATE_CREATOR_EMAIL?.includes((session as SessionWithToken).user!.email!)?true:false;
-      console.log(session)
+      console.log('nextauth', session)
       return session;
     },
   },
