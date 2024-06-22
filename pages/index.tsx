@@ -55,7 +55,7 @@ export default function Index() {
             : Stages.Complete;
 
           return (
-            <Link key={rate.id} href={`/rate/${rate.id}`}>
+            <Link className='block w-1/2' key={rate.id} href={`/rate/${rate.id}`}>
                 <div
                   className={`${
                     stage === Stages.Submit
