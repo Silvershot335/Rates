@@ -161,9 +161,10 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const session = (await getSession({ req })) as SessionWithToken;
-  const accessToken = session?.user?.email;
-
-  if (!accessToken || !session) {
+ // const accessToken = session?.user?.email;
+  console.log(session.user)
+  
+  if (!session) {
     res.status(401).json({
       error: 'You Shall Not Pass',
     });
