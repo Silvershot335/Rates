@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
+import { SessionWithToken } from '../../../types/session';
 
 export default NextAuth({
   providers: [
@@ -23,9 +24,9 @@ export default NextAuth({
       return token;
     },
     async session({ session, user, token }) {
-      session.user = user ?? session.user;
-      session.token = token ?? session.token;
-      session.isAdmin = process.env.RATE_CREATOR_EMAIL?.includes(session.user!.email!);
+      (session as SessionWithToken).user = user ?? (session as SessionWithToken).user;
+      //(session as SessionWithToken).token = token ?? (session as SessionWithToken).token;
+      (session as SessionWithToken).isAdmin = process.env.RATE_CREATOR_EMAIL?.includes((session as SessionWithToken).user!.email!)?true:false;
 
       return session;
     },
