@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Session } from 'next-auth';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
 import admin from '../../../lib/firebase';
 import { Rate, Song } from '../../../types/rate';
 import { SessionWithToken } from '../../../types/session';
@@ -160,9 +160,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = (await getSession({ req })) as SessionWithToken;
+  const session = (await getServerSession( req )) as SessionWithToken;
  // const accessToken = session?.user?.email;
-  console.log('idex', session)
+  console.log('index', session)
   
   if (!session) {
     res.status(401).json({
