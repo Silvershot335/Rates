@@ -162,7 +162,7 @@ export default async function handler(
 ) {
   const session = (await getSession({ req })) as SessionWithToken;
  // const accessToken = session?.user?.email;
-  console.log(session.user)
+  console.log(session)
   
   if (!session) {
     res.status(401).json({

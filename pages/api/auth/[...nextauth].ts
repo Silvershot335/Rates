@@ -25,9 +25,9 @@ export default NextAuth({
     },
     async session({ session, user, token }) {
       (session as SessionWithToken).user = user ?? (session as SessionWithToken).user;
-      
-      (session as SessionWithToken).isAdmin = process.env.RATE_CREATOR_EMAIL?.includes((session as SessionWithToken).user!.email!)?true:false;
 
+      (session as SessionWithToken).isAdmin = process.env.RATE_CREATOR_EMAIL?.includes((session as SessionWithToken).user!.email!)?true:false;
+      console.log(session)
       return session;
     },
   },
