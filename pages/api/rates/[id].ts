@@ -2,11 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import admin from '../../../lib/firebase';
 import { Playlist, Rate, Song, SongRating } from '../../../types/rate';
-import { SessionWithToken } from '../../../types/session';
 import { getIDFromLink, isSpotifyURL } from '../../../util/spotify';
+import { Session, getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 async function getSongs(
-  session: SessionWithToken,
+  session: Session,
   songs: Song[],
   rates: SongRating[],
 ) {
@@ -23,7 +24,7 @@ async function getSongs(
 }
 
 async function getRate(
-  session: SessionWithToken,
+  session: Session,
   id: string,
 ): Promise<Partial<Rate> & { success: boolean }> {
   const collection = admin.firestore().collection('rates');
@@ -71,7 +72,7 @@ async function getRate(
 }
 
 async function submitSongsForRate(
-  session: SessionWithToken,
+  session: Session,
   inputSongs: string[],
   id: string,
 ) {
@@ -106,7 +107,7 @@ async function submitSongsForRate(
 }
 
 async function addRatings(
-  session: SessionWithToken,
+  session: Session,
   ratings: { rates: SongRating[]; saveForLater: boolean },
   id: string,
 ) {
@@ -141,8 +142,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = (await getSession({ req })) as SessionWithToken;
-  //const accessToken = session?.user?.email;
+  const session = await getServerSession(req, res, authOptions);
   console.log('id', session)
 
   if (!session) {
